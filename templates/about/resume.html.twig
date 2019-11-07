@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/resume.css') }}">
+{% endblock %}
+
+{% block title %}My Resume{% endblock %}
+
+{% block body %}
+    <header class="px-4 py-3">
+        <h1 class="display-4 mb-0">Julien Helfer, <small>développeur Symfony junior</small></h1>
+        <p class="text-light mb-0">Développeur curieux et motivé ! Disponible immédiatement.</p>
+    </header>
+
+    <div class="container-fluid">
+        <div class="row">
+            <main class="col-lg-10 col-md-9 order-md-2 py-4">
+                <div class="row">
+                    <section class="col-md pl-md-5">
+                        <h2>Expérience professionelle</h2>
+
+                        <h3>GUIDAP, Labège (31)</h3>
+                        <b>De <time datetime="2019-03-01T09:00">mars 2019</time> à <time datetime="2019-10-01T18:00">septembre 2019</time></b>
+                        <p>Une expérience ici, avec la description du poste et des responsabilités liées, ainsi qu'un bref résumé des missions accomplies.</p>
+                        <ul>
+                            <li>Mission untel avec une description encourageante</li>
+                            <li>Mission untel avec une description audacieuse</li>
+                        </ul>
+
+                        <h3>Humanis, Schiltigheim (67)</h3>
+                        <b>De <time datetime="2015-09-01T09:00">septembre 2015</time> à <time datetime="2017-09-01T18:00">septembre 2017</time></b>
+                        <p>Une expérience là, avec la description du poste et des responsabilités liées, ainsi qu'un bref résumé des missions accomplies.</p>
+                        <ul>
+                            <li>Mission untel avec une description astucieuse</li>
+                            <li>Mission untel avec une description technique</li>
+                        </ul>
+
+                        <h3>Graphiste Freelance, Strasbourg (67)</h3>
+                        <b>De <time datetime="2011-01-01T09:00">2011</time> à <time datetime="2016-12-01T18:00">2016</time></b>
+                        <p>Une expérience en graphisme.</p>
+                    </section>
+                    <section class="col-md">
+                        <h2>Compétences</h2>
+                        <ul class="list-unstyled skills">
+                            <li>PHP 5+, 7+</li>
+                            <li>Symfony 3.4, 4+</li>
+                            <li>Javascript</li>
+                            <li>Node.js</li>
+                            <li>SQL, SPARQL</li>
+                            <li>HTML 5, CSS 3</li>
+                        </ul>
+                    </section>
+                    <section class="col-md">
+                        <h2>Formation</h2>
+
+                        <h3>Openclassroom</h3>
+                        <b><time>2018 - 2019</time></b>
+                        <p>Formation de développeur d'application (PHP et Symfony)</p>
+
+                        <h3>Le Corbusier, Illkirch-Graffenstaden (67)</h3>
+                        <b><time>2010</time></b>
+                        <p>Obtention du Diplôme Supérieur d'Art Apliqué (DSAA)</p>
+
+                        <h3>Le Quai, Mulhouse (68)</h3>
+                        <b><time>2008</time></b>
+                        <p>Obtention du Diplôme National d'Art Plastique (DNAP)</p>
+                    </section>
+                </div>
+            </main>
+            <aside class="col-lg-2 col-md-3 order-md-1 py-4 text-light resume-aside">
+                <figure>
+                    <a href="{{ asset('uploads/avatars/default_avatar.png') }}">
+                        <img class="mw-100" src="{{ asset('uploads/avatars/default_avatar.png') }}" alt="Picture of Julien Helfer" title="Cliquer sur la photo pour l'agrandir"/>
+                    </a>
+                </figure>
+
+                <h2>Coordonnées</h2>
+                <address>
+                    21bis, avenue Maurice Bourges Maunoury<br>
+                    31000 Toulouse<br>
+                    <a href="mailto:julien.helfer@gmail.com" title="julien.helfer@gmail.com"><span class="fas fa-envelope fa-fw mr-2" aria-hidden="true"></span>Mon couriel</a><br>
+                    <span class="fas fa-mobile-alt fa-fw mr-2" aria-hidden="true"></span>06 52 39 54 55
+                </address>
+
+                <h2>Loisirs</h2>
+                <ul class="list-unstyled">
+                    <li><span class="fas fa-map fa-fw mr-2" aria-hidden="true"></span>Grande randonnée</li>
+                    <li><span class="fas fa-anchor fa-fw mr-2" aria-hidden="true"></span>Navigation à voile</li>
+                    <li><span class="fas fa-dice-d20 fa-fw mr-2" aria-hidden="true"></span>Jeux de plateau</li>
+                    <li><span class="fas fa-gamepad fa-fw mr-2" aria-hidden="true"></span>Jeux vidéo</li>
+                </ul>
+
+                <h2>Divers</h2>
+                <ul class="list-unstyled">
+                    <li><span class="fas fa-car fa-fw mr-2" aria-hidden="true"></span>Titulaire du permis B</li>
+                </ul>
+            </aside>
+        </div>
+    </div>
+{% endblock %}

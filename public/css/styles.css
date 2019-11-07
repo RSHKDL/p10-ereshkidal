@@ -1,0 +1,32 @@
+body {
+    background: #efefee;
+}
+
+html {
+    height:100%;
+    background: #f8f9fa;
+}
+
+/* NAVIGATION */
+
+.nav-profile-img {
+    width: 70px;
+    border: 1px solid #efefee;
+}
+
+/* LOGIN REGISTRATION */
+
+/* ARTICLES */
+
+/* PROFILE */
+
+/* CREATE ARTICLE */
+
+/* ARTICLE SHOW PAGE */
+
+/* FOOTER */
+
+.footer {
+    width: 100%;
+    padding: 0.5em;
+}

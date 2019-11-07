@@ -13,12 +13,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class ArticleController extends AbstractController
 {
     /**
-     * @Route("/")
+     * @Route("/", name="homepage")
      * @return Response
      */
     public function homepage()
     {
-        return new Response('Hello world ;)');
+        return $this->render('article/index.html.twig', []);
     }
 
     /**
