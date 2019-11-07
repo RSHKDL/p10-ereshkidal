@@ -11,7 +11,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ArticleController
 {
-
     /**
      * @Route("/")
      * @return Response
