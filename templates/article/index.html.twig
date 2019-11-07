@@ -1,5 +1,55 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <p>Hello world!</p>
+    <div class="container mt-5">
+        <div class="row">
+            <main class="col">
+                <h1>The main featured article</h1>
+                <p>Small excerpt...</p>
+            </main>
+            <aside class="col">
+                <h2>Latest posts</h2>
+                <ul>
+                    <li>
+                        <a href="{{ path('article_show', {slug: 'what-i-like-about-php-8'}) }}">other article 1</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('article_show', {slug: 'docker-is-amazing'}) }}">other article 2</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('article_show', {slug: 'two-years-of-formation'}) }}">other article 3</a>
+                    </li>
+                </ul>
+            </aside>
+        </div>
+    </div>
+    <div class="container mb-5">
+        <h2>All posts</h2>
+        <div class="card-deck">
+            <div class="card">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

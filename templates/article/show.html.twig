@@ -4,8 +4,15 @@
 
 {% block body %}
 <div class="container">
-    <header>
+    <header class="mb-3">
+        <small>November 6, 2019</small>
         <h1>{{ title }}</h1>
+        <span>By Sinndrae</span>
+        <span class="pl-2 text-muted">Development, Thoughts</span>
+        <span class="pl-2">
+            <span class="js-like-article-count">0</span>
+            <a href="{{ path('article_toggle_heart', {slug: slug}) }}" class="fa fa-heart-o js-like-article"></a>
+        </span>
     </header>
     <div class="row">
         <main class="col-8 article-text ">
@@ -41,4 +48,9 @@
         </ul>
     </div>
 </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/article_show.js') }}"></script>
 {% endblock %}
