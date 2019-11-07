@@ -14,6 +14,20 @@ use Symfony\Component\Routing\Annotation\Route;
 class ArticleController extends AbstractController
 {
     /**
+     * @var bool
+     */
+    private $isDebug;
+
+    /***
+     * ArticleController constructor.
+     * @param bool $isDebug
+     */
+    public function __construct(bool $isDebug)
+    {
+        $this->isDebug = $isDebug;
+    }
+
+    /**
      * @Route("/", name="app_homepage")
      */
     public function homepage(): Response
@@ -22,6 +36,7 @@ class ArticleController extends AbstractController
     }
 
     /**
+     * @todo use a database!
      * @Route("/news/{slug}", name="article_show")
      * @param string $slug
      * @return Response
@@ -42,6 +57,7 @@ class ArticleController extends AbstractController
     }
 
     /**
+     * @todo actually heart/unheart the article!
      * @Route("/news/{slug}/heart", name="article_toggle_heart", methods={"POST"})
      * @param string $slug
      * @return JsonResponse
@@ -49,8 +65,6 @@ class ArticleController extends AbstractController
      */
     public function toggleArticleHeart(string $slug): JsonResponse
     {
-        // TODO - actually heart/unheart the article!
-
         return $this->json(['hearts' => random_int(5, 100)]);
     }
 }
