@@ -31,7 +31,6 @@ class ArticleFixtures extends BaseFixture
     {
         $this->createMany(Article::class, 10, static function (Article $article, int $count, Generator $faker) {
             $article->setTitle($faker->randomElement(self::$articleTitles));
-            $article->setSlug($faker->slug(8, true));
             $article->setContent($faker->realText());
             if ($faker->boolean(60)) {
                 $article->setImageFilename($faker->randomElement(self::$articleImages));
