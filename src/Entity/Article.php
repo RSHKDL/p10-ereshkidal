@@ -105,6 +105,13 @@ class Article
         return $this;
     }
 
+    public function incrementHeartCount(): self
+    {
+        ++$this->heartCount;
+
+        return $this;
+    }
+
     public function getHeartCount(): ?int
     {
         return $this->heartCount;

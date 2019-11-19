@@ -40,4 +40,14 @@ class ArticleRepository extends ServiceEntityRepository
     {
         return $this->getOrCreateQueryBuilder($qb)->andWhere('a.publishedAt IS NOT NULL');
     }
+
+    /**
+     * @param Article $article
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function update(Article $article): void
+    {
+        $this->_em->flush($article);
+    }
 }

@@ -49,7 +49,6 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @todo use a database!
      * @Route("/news/{slug}", name="article_show")
      * @param string $slug
      * @return Response
@@ -68,15 +67,19 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @todo actually heart/unheart the article!
+     * Not optimized for high-traffic system, race condition can occurs.
+     *
      * @Route("/news/{slug}/heart", name="article_toggle_heart", methods={"POST"})
-     * @param string $slug
+     * @param Article $article
      * @return JsonResponse
      * @throws \Exception
      */
-    public function toggleArticleHeart(string $slug): JsonResponse
+    public function toggleArticleHeart(Article $article): JsonResponse
     {
-        return $this->json(['hearts' => random_int(5, 100)]);
+        $article->incrementHeartCount();
+        $this->articleRepository->update($article);
+
+        return $this->json(['hearts' => $article->getHeartCount()]);
     }
 
     /**
