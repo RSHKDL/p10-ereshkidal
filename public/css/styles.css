@@ -16,7 +16,11 @@ html {
 
 /* LOGIN REGISTRATION */
 
-/* ARTICLES */
+/* ARTICLES INDEX */
+
+.card-footer {
+    font-size: small;
+}
 
 /* PROFILE */
 

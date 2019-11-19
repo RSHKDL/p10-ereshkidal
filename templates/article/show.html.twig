@@ -14,7 +14,7 @@
             <a href="{{ path('article_toggle_heart', {slug: article.slug}) }}" class="fa fa-heart-o js-like-article"></a>
         </span>
     </header>
-    <div class="row">
+    <section class="row">
         <main class="col-8 article-text ">
             {% if article.imageFilename %}
                 <img src="{{ asset(article.imagePath) }}">
@@ -30,13 +30,23 @@
                 <li>Yup, sorry</li>
             </ul>
         </aside>
-    </div>
-    <div>
-        <h2>Comments (0)</h2>
-        <ul>
-            <li>No comments yet</li>
-        </ul>
-    </div>
+    </section>
+    <section>
+        <h2>Comments ({{ article.comments|length }})</h2>
+        {% for comment in article.comments %}
+            <section class="row mb-3">
+                <div class="col-3">
+                    <strong>{{ comment.author }}</strong>
+                    <span class="text-muted d-block">{{ comment.createdAt|date('m/d/Y H:i:s') }}</span>
+                </div>
+                <div class="col-9">
+                    {{ comment.content }}
+                </div>
+            </section>
+        {% else %}
+            <p>No comments yet</p>
+        {% endfor %}
+    </section>
 </div>
 {% endblock %}
 

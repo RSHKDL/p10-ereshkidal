@@ -39,7 +39,11 @@
                         <a href="{{ path('article_show', {slug: article.slug}) }}">{{ article.title }}</a>
                     </h5>
                     <p class="card-text">{{ article.content }}</p>
-                    <p class="card-text"><small class="text-muted">{{ article.publishedAt|date('F jS, Y') }}</small></p>
+                </div>
+                <div class="card-footer text-muted">
+                    {{ article.publishedAt|date('F jS, Y') }}
+                    <span class="fas fa-heart"></span> {{ article.heartCount }}
+                    <span class="fas fa-comments"></span> {{ article.comments|length }}
                 </div>
             </div>
             {% endfor %}

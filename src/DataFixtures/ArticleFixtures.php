@@ -4,7 +4,6 @@ namespace App\DataFixtures;
 
 use App\Entity\Article;
 use Doctrine\Common\Persistence\ObjectManager;
-use Faker\Generator;
 
 /**
  * Class ArticleFixtures
@@ -29,15 +28,15 @@ class ArticleFixtures extends BaseFixture
      */
     protected function loadData(ObjectManager $manager): void
     {
-        $this->createMany(Article::class, 10, static function (Article $article, int $count, Generator $faker) {
-            $article->setTitle($faker->randomElement(self::$articleTitles));
-            $article->setContent($faker->realText());
-            if ($faker->boolean(60)) {
-                $article->setImageFilename($faker->randomElement(self::$articleImages));
+        $this->createMany(Article::class, 10, function (Article $article, int $count) {
+            $article->setTitle($this->faker->randomElement(self::$articleTitles));
+            $article->setContent($this->faker->realText());
+            if ($this->faker->boolean(60)) {
+                $article->setImageFilename($this->faker->randomElement(self::$articleImages));
             }
-            $article->setHeartCount($faker->numberBetween(0, 99));
-            if ($faker->boolean(70)) {
-                $article->setPublishedAt($faker->dateTimeBetween('-60 days', '-1 days'));
+            $article->setHeartCount($this->faker->numberBetween(0, 99));
+            if ($this->faker->boolean(70)) {
+                $article->setPublishedAt($this->faker->dateTimeBetween('-60 days', '-1 days'));
             }
         });
         $manager->flush();
