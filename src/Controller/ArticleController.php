@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Article;
+use App\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,13 +20,20 @@ class ArticleController extends AbstractController
      */
     private $isDebug;
 
+    /**
+     * @var ArticleRepository
+     */
+    private $articleRepository;
+
     /***
      * ArticleController constructor.
      * @param bool $isDebug
+     * @param ArticleRepository $articleRepository
      */
-    public function __construct(bool $isDebug)
+    public function __construct(bool $isDebug, ArticleRepository $articleRepository)
     {
         $this->isDebug = $isDebug;
+        $this->articleRepository = $articleRepository;
     }
 
     /**
@@ -32,7 +41,11 @@ class ArticleController extends AbstractController
      */
     public function homepage(): Response
     {
-        return $this->render('article/index.html.twig', []);
+        $articles = $this->articleRepository->findAllPublishedOrderedByNewest();
+
+        return $this->render('article/index.html.twig', [
+            'articles' => $articles
+        ]);
     }
 
     /**
@@ -43,16 +56,14 @@ class ArticleController extends AbstractController
      */
     public function show(string $slug): Response
     {
-        $comments = [
-            'I ate a normal rock once. It did NOT taste like bacon!',
-            'Woohoo! I\'m going on an all-asteroid diet!',
-            'I like bacon too! Buy some from my site! bakinsomebacon.com',
-        ];
+        /** @var Article $article */
+        $article = $this->articleRepository->findOneBy(['slug' => $slug]);
+        if (!$article) {
+            throw $this->createNotFoundException(sprintf('No article for slug "%s"', $slug));
+        }
 
         return $this->render('article/show.html.twig', [
-            'title' => ucwords(str_replace('-', ' ', $slug)),
-            'comments' => $comments,
-            'slug' => $slug,
+            'article' => $article
         ]);
     }
 
@@ -66,5 +77,15 @@ class ArticleController extends AbstractController
     public function toggleArticleHeart(string $slug): JsonResponse
     {
         return $this->json(['hearts' => random_int(5, 100)]);
+    }
+
+    /**
+     * @todo actually save the article in the db
+     * @Route("/articles/create", name="article_create")
+     */
+    public function create()
+    {
+        $article = new Article();
+        $this->articleRepository->save($article);
     }
 }

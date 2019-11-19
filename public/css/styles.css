@@ -24,6 +24,11 @@ html {
 
 /* ARTICLE SHOW PAGE */
 
+.article-text img {
+    width: 100%;
+    margin-bottom: 2em;
+}
+
 /* FOOTER */
 
 .footer {
