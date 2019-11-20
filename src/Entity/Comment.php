@@ -7,7 +7,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
- * @ORM\Table(name="app_comment")
+ * @ORM\Table(name="app_comments")
  */
 class Comment
 {

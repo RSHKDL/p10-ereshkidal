@@ -8,7 +8,9 @@
         <small>{{ article.publishedAt|date('F jS, Y') }}</small>
         <h1>{{ article.title }}</h1>
         <span>By Sinndrae</span>
-        <span class="pl-2 text-muted">Development, Thoughts</span>
+        {% for tag in article.tags %}
+            <span class="badge badge-secondary">{{ tag.name }}</span>
+        {% endfor %}
         <span class="pl-2">
             <span class="js-like-article-count">{{ article.heartCount }}</span>
             <a href="{{ path('article_toggle_heart', {slug: article.slug}) }}" class="fa fa-heart-o js-like-article"></a>
@@ -17,9 +19,9 @@
     <section class="row">
         <main class="col-8 article-text ">
             {% if article.imageFilename %}
-                <img src="{{ asset(article.imagePath) }}">
+                <img src="{{ asset(article.imagePath) }}" alt="{{ article.title }}">
             {% else %}
-                <img src="{{ asset('uploads/default/default_image.jpg') }}">
+                <img src="{{ asset('uploads/default/default_image.jpg') }}" alt="A default image">
             {% endif %}
             {{ article.content }}
         </main>

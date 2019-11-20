@@ -41,6 +41,11 @@
                     <p class="card-text">{{ article.content|truncate(140) }}</p>
                 </div>
                 <div class="card-footer text-muted">
+                    <div>
+                        {% for tag in article.tags %}
+                            <span class="badge badge-secondary">{{ tag.name }}</span>
+                        {% endfor %}
+                    </div>
                     {{ article.publishedAt|time_diff }}
                     <span class="fas fa-heart"></span> {{ article.heartCount }}
                     <span class="fas fa-comments"></span> {{ article.getNonDeletedComments|length }}

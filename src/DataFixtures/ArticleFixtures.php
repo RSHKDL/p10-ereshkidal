@@ -3,14 +3,27 @@
 namespace App\DataFixtures;
 
 use App\Entity\Article;
+use App\Entity\Tag;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
 /**
  * Class ArticleFixtures
  * @author ereshkidal
  */
-class ArticleFixtures extends BaseFixture
+class ArticleFixtures extends BaseFixture implements DependentFixtureInterface
 {
+    /**
+     * This method must return an array of fixtures classes
+     * on which the implementing class depends on
+     *
+     * @return array
+     */
+    public function getDependencies(): array
+    {
+        return [TagFixtures::class];
+    }
+
     private static $articleTitles = [
         'What I like about PHP 8',
         'PSA: Docker is amazing',
@@ -37,6 +50,10 @@ class ArticleFixtures extends BaseFixture
             $article->setHeartCount($this->faker->numberBetween(0, 99));
             if ($this->faker->boolean(70)) {
                 $article->setPublishedAt($this->faker->dateTimeBetween('-60 days', '-1 days'));
+            }
+            $tags = $this->getRandomReferences(Tag::class, $this->faker->numberBetween(1, 3));
+            foreach ($tags as $tag) {
+                $article->addTag($tag);
             }
         });
         $manager->flush();

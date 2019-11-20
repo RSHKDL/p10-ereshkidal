@@ -27,16 +27,26 @@ class ArticleRepository extends ServiceEntityRepository
     public function findAllPublishedOrderedByNewest(): array
     {
         return $this->addIsPublishedQueryBuilder()
+            ->leftJoin('a.tags', 't')
+            ->addSelect('t')
             ->orderBy('a.publishedAt', 'DESC')
             ->getQuery()
             ->getResult();
     }
 
+    /**
+     * @param QueryBuilder|null $qb
+     * @return QueryBuilder
+     */
     private function getOrCreateQueryBuilder(QueryBuilder $qb = null): QueryBuilder
     {
         return $qb ?: $this->createQueryBuilder('a');
     }
 
+    /**
+     * @param QueryBuilder|null $qb
+     * @return QueryBuilder
+     */
     private function addIsPublishedQueryBuilder(QueryBuilder $qb = null): QueryBuilder
     {
         return $this->getOrCreateQueryBuilder($qb)->andWhere('a.publishedAt IS NOT NULL');
@@ -52,6 +62,10 @@ class ArticleRepository extends ServiceEntityRepository
         $this->_em->flush($article);
     }
 
+    /**
+     * @todo this concern comments and should be moved to CommentRepository
+     * @return Criteria
+     */
     public static function createNonDeletedCriteria(): Criteria
     {
         $criteria = Criteria::create();
