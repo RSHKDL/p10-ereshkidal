@@ -18,7 +18,7 @@
             <tr>
                 <td><a href="{{ path('article_show', {slug: comment.article.slug}) }}">{{ comment.article.title }}</a></td>
                 <td>{{ comment.author }}</td>
-                <td>{{ comment.content }}</td>
+                <td>{{ comment.content|truncate }}</td>
                 <td>{{ comment.createdAt|date }}</td>
             </tr>
         {% endfor %}
