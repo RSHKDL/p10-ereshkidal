@@ -1,0 +1,27 @@
+{% extends 'admin/index.html.twig' %}
+
+{% block title %}Dashboard - Manage Comments{% endblock %}
+
+{% block admin_body %}
+    <h2>Manage Comments</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Article</th>
+                <th scope="col">Author</th>
+                <th scope="col">Content</th>
+                <th scope="col">Created</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for comment in comments %}
+            <tr>
+                <td><a href="{{ path('article_show', {slug: comment.article.slug}) }}">{{ comment.article.title }}</a></td>
+                <td>{{ comment.author }}</td>
+                <td>{{ comment.content }}</td>
+                <td>{{ comment.createdAt|date }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

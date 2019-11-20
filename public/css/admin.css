@@ -1,0 +1,16 @@
+body {
+    background: #efefee;
+}
+
+html {
+    height:100%;
+    background: #f8f9fa;
+}
+
+/* NAVIGATION */
+
+.admin aside {
+    font-size: small;
+    padding-top: 3em;
+}
+
