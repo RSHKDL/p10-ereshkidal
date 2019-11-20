@@ -43,7 +43,7 @@
                 <div class="card-footer text-muted">
                     {{ article.publishedAt|date('F jS, Y') }}
                     <span class="fas fa-heart"></span> {{ article.heartCount }}
-                    <span class="fas fa-comments"></span> {{ article.comments|length }}
+                    <span class="fas fa-comments"></span> {{ article.getNonDeletedComments|length }}
                 </div>
             </div>
             {% endfor %}

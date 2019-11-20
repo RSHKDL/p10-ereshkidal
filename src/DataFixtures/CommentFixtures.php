@@ -36,6 +36,7 @@ class CommentFixtures extends BaseFixture implements DependentFixtureInterface
                 /** @var Article $article */
                 $article = $this->getRandomReference(Article::class);
                 $comment->setArticle($article);
+                $comment->setIsDeleted($this->faker->boolean(30));
         });
         $manager->flush();
     }

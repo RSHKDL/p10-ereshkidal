@@ -32,8 +32,8 @@
         </aside>
     </section>
     <section>
-        <h2>Comments ({{ article.comments|length }})</h2>
-        {% for comment in article.comments %}
+        <h2>Comments ({{ article.getNonDeletedComments|length }})</h2>
+        {% for comment in article.getNonDeletedComments %}
             <section class="row mb-3">
                 <div class="col-3">
                     <strong>{{ comment.author }}</strong>
