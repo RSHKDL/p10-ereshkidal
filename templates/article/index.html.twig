@@ -38,7 +38,7 @@
                     <h5 class="card-title">
                         <a href="{{ path('article_show', {slug: article.slug}) }}">{{ article.title }}</a>
                     </h5>
-                    <p class="card-text">{{ article.content }}</p>
+                    <p class="card-text">{{ article.content|truncate(140) }}</p>
                 </div>
                 <div class="card-footer text-muted">
                     {{ article.publishedAt|time_diff }}

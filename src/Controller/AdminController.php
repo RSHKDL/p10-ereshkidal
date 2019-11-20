@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\CommentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -23,9 +24,10 @@ class AdminController extends AbstractController
      * @param CommentRepository $repository
      * @return Response
      */
-    public function manageComments(CommentRepository $repository): Response
+    public function manageComments(CommentRepository $repository, Request $request): Response
     {
-        $comments = $repository->findBy([], ['createdAt' => 'DESC']);
+        $term = $request->query->get('q');
+        $comments = $repository->findAllWithFilter($term);
 
         return $this->render('admin/comments.html.twig', [
             'comments' => $comments

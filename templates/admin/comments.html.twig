@@ -4,6 +4,17 @@
 
 {% block admin_body %}
     <h2>Manage Comments</h2>
+    <form>
+        <div class="input-group mb-3">
+            <input type="text" name="q" class="form-control" placeholder="Search..." value="{{ app.request.query.get('q') }}">
+            <div class="input-group-append">
+                <button type="submit"
+                        class="btn btn-dark">
+                    <span class="fa fa-search"></span>
+                </button>
+            </div>
+        </div>
+    </form>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -20,6 +31,10 @@
                 <td>{{ comment.author }}</td>
                 <td>{{ comment.content|truncate }}</td>
                 <td>{{ comment.createdAt|date }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4" class="text-center">No result found.</td>
             </tr>
         {% endfor %}
         </tbody>
