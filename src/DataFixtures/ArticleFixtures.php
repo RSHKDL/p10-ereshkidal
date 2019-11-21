@@ -28,6 +28,7 @@ class ArticleFixtures extends BaseFixture implements DependentFixtureInterface
         'What I like about PHP 8',
         'PSA: Docker is amazing',
         'Two years of formation. And a stage.',
+        'Are all sheep electric?'
     ];
 
     private static $articleImages = [
@@ -41,7 +42,8 @@ class ArticleFixtures extends BaseFixture implements DependentFixtureInterface
      */
     protected function loadData(ObjectManager $manager): void
     {
-        $this->createMany(Article::class, 10, function (Article $article, int $count) {
+        $this->createMany(20, 'main_articles', function (int $i) {
+            $article = new Article();
             $article->setTitle($this->faker->randomElement(self::$articleTitles));
             $article->setContent($this->faker->realText());
             if ($this->faker->boolean(60)) {
@@ -49,12 +51,14 @@ class ArticleFixtures extends BaseFixture implements DependentFixtureInterface
             }
             $article->setHeartCount($this->faker->numberBetween(0, 99));
             if ($this->faker->boolean(70)) {
-                $article->setPublishedAt($this->faker->dateTimeBetween('-60 days', '-1 days'));
+                $article->setPublishedAt($this->faker->dateTimeBetween('-3 months', '-1 days'));
             }
-            $tags = $this->getRandomReferences(Tag::class, $this->faker->numberBetween(1, 3));
+            $tags = $this->getRandomReferences('main_tags', $this->faker->numberBetween(1, 3));
             foreach ($tags as $tag) {
                 $article->addTag($tag);
             }
+
+            return $article;
         });
         $manager->flush();
     }
