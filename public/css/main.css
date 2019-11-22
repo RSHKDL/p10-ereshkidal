@@ -12,19 +12,14 @@ html {
 .nav-profile-img {
     width: 70px;
     border: 1px solid #efefee;
+    background-color: #5b4f69;
 }
-
-/* LOGIN REGISTRATION */
 
 /* ARTICLES INDEX */
 
 .card-footer {
     font-size: small;
 }
-
-/* PROFILE */
-
-/* CREATE ARTICLE */
 
 /* ARTICLE SHOW PAGE */
 

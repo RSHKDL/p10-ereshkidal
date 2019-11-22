@@ -6,7 +6,7 @@
         <title>{% block title %}Welcome to Ereshkidal{% endblock %}</title>
         {% block stylesheets %}
             <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-            <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/main.css') }}">
         {% endblock %}
     </head>
     <body>
@@ -30,21 +30,25 @@
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
             <ul class="navbar-nav ml-auto">
+                {% if is_granted('ROLE_USER') %}
+                <li class="nav-item dropleft">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img class="nav-profile-img" src="{{ app.user.getAvatarUrl(100) }}">
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ path('article_create') }}">Create a post</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ path('app_account') }}">See profile</a>
+                        <a class="dropdown-item" href="{{ path('app_logout') }}">Logout</a>
+                    </div>
+                </li>
+                {% else %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_login') }}">Login</a>
                 </li>
+                {% endif %}
                 {#
-                <li class="nav-item dropleft">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img class="nav-profile-img" src="{{ asset('uploads/avatars/default_avatar.png') }}">
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Create a post</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">See profile</a>
-                        <a class="dropdown-item" href="#">Logout</a>
-                    </div>
-                </li>
+
                 #}
             </ul>
         </div>

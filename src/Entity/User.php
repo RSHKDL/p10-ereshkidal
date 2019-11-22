@@ -159,4 +159,23 @@ class User implements UserInterface
 
         return $this;
     }
+
+    /**
+     * @todo make a profile entity related to User for storing data like this
+     */
+    public function getTwitterUsername(): string
+    {
+        return 'https://twitter.com/'.strtolower($this->getUsername());
+    }
+
+    public function getAvatarUrl(?int $size = null): string
+    {
+        $url = 'https://robohash.org/'.$this->getUsername();
+
+        if ($size) {
+            $url .= sprintf('?size=%dx%d', $size, $size);
+        }
+
+        return $url;
+    }
 }
