@@ -29,4 +29,15 @@ class UserRepository extends ServiceEntityRepository
         $this->_em->persist($user);
         $this->_em->flush();
     }
+
+    /**
+     * @return User[]
+     */
+    public function findAllUsernameAlphabetical(): array
+    {
+        return $this->createQueryBuilder('u')
+            ->orderBy('u.username', 'ASC')
+            ->getQuery()
+            ->execute();
+    }
 }
