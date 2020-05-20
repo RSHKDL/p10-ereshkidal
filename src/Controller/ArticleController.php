@@ -88,7 +88,28 @@ class ArticleController extends AbstractController
      */
     public function create()
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $article = new Article();
         $this->articleRepository->save($article);
+    }
+
+    /**
+     * @Route("/articles/{id}/update", name="article_update")
+     * @param Article $article
+     */
+    public function update(Article $article)
+    {
+        $this->denyAccessUnlessGranted('MANAGE', $article);
+        dd($article);
+    }
+
+    /**
+     * @Route("/articles/{id}/delete", name="article_delete")
+     * @param Article $article
+     */
+    public function delete(Article $article)
+    {
+        $this->denyAccessUnlessGranted('MANAGE', $article);
+        dd($article);
     }
 }

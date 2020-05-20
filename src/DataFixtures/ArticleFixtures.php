@@ -3,7 +3,6 @@
 namespace App\DataFixtures;
 
 use App\Entity\Article;
-use App\Entity\Tag;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
@@ -21,7 +20,10 @@ class ArticleFixtures extends BaseFixture implements DependentFixtureInterface
      */
     public function getDependencies(): array
     {
-        return [TagFixtures::class];
+        return [
+            UserFixtures::class,
+            TagFixtures::class
+        ];
     }
 
     private static $articleTitles = [
@@ -46,6 +48,7 @@ class ArticleFixtures extends BaseFixture implements DependentFixtureInterface
             $article = new Article();
             $article->setTitle($this->faker->randomElement(self::$articleTitles));
             $article->setContent($this->faker->realText());
+            $article->setAuthor($this->getRandomReference('main_users'));
             if ($this->faker->boolean(60)) {
                 $article->setImageFilename($this->faker->randomElement(self::$articleImages));
             }
