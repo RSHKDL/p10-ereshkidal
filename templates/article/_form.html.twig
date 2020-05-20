@@ -1,0 +1,13 @@
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    {{ form_row(form.title) }}
+    {{ form_row(form.author) }}
+    {{ form_row(form.publishedAt) }}
+    {{ form_row(form.content) }}
+    <button class="btn btn-lg btn-primary mt-3" type="submit">
+        {{ btn_text }}
+    </button>
+{{ form_end(form) }}
+
+
+
+

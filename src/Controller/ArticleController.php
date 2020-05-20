@@ -99,15 +99,13 @@ class ArticleController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $article = $form->getData();
-            $article->setAuthor($this->getUser());
             $this->articleRepository->save($article);
-
-            $this->addFlash('success', 'Article created. A job well done.');
+            $this->addFlash('success', 'Article created! A job well done.');
 
             return $this->redirectToRoute('admin_articles');
         }
 
-        return $this->render('article/new.html.twig', [
+        return $this->render('article/create.html.twig', [
             'form' => $form->createView()
         ]);
     }
@@ -115,11 +113,29 @@ class ArticleController extends AbstractController
     /**
      * @Route("/articles/{id}/update", name="article_update")
      * @param Article $article
+     * @param Request $request
+     * @return Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function update(Article $article)
+    public function update(Article $article, Request $request): Response
     {
         $this->denyAccessUnlessGranted('MANAGE', $article);
-        dd($article);
+
+        $form = $this->createForm(ArticleType::class, $article);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->articleRepository->save($article);
+            $this->addFlash('success', 'Article updated! Good for you.');
+
+            return $this->redirectToRoute('article_update', [
+                'id' => $article->getId()
+            ]);
+        }
+
+        return $this->render('article/update.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 
     /**

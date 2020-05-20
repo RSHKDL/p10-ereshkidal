@@ -1,0 +1,10 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Add a new article{% endblock %}
+
+{% block admin_body %}
+    <h1>Add a new article</h1>
+    {{ include('article/_form.html.twig', {
+        btn_text: 'Create!'
+    }) }}
+{% endblock %}

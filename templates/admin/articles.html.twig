@@ -22,6 +22,7 @@
             <th scope="col">Author</th>
             <th scope="col">Created</th>
             <th scope="col">Published</th>
+            <th scope="col">Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -30,7 +31,14 @@
                 <td><a href="{{ path('article_show', {slug: article.slug}) }}">{{ article.title }}</a></td>
                 <td>{{ article.author }}</td>
                 <td>{{ article.createdAt|date }}</td>
-                <td><span class="fas fa-{{ article.isPublished ? 'check' : 'times' }}"></span></td>
+                <td>
+                    <span class="fas fa-{{ article.isPublished ? 'check' : 'times' }}"></span>
+                </td>
+                <td>
+                    <span class="fas fa-calendar-check text-success" aria-hidden="true"></span>
+                    <a href="{{ path('article_update', {id: article.id}) }}" class="text-warning"><span class="fas fa-edit" aria-hidden="true"></span></a>
+                    <a href="{{ path('article_delete', {id: article.id}) }}" class="text-danger"><span class="fas fa-trash" aria-hidden="true"></span></a>
+                </td>
             </tr>
         {% else %}
             <tr>

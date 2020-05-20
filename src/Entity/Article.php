@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
@@ -26,6 +27,8 @@ class Article
 
     /**
      * @ORM\Column(type="string", length=140)
+     * @Assert\NotBlank(message="A title is mandatory")
+     * @Assert\Length(min="3", max="140")
      */
     private $title;
 
