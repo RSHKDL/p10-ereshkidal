@@ -1,9 +1,9 @@
 {% extends 'admin/index.html.twig' %}
 
-{% block title %}Dashboard - Manage Comments{% endblock %}
+{% block title %}Dashboard - Manage Articles{% endblock %}
 
 {% block admin_body %}
-    <h2>Manage Comments ({{ pagination.totalItemCount }})</h2>
+    <h2>Manage Articles ({{ pagination.totalItemCount }})</h2>
     <form>
         <div class="input-group mb-3">
             <input type="text" name="q" class="form-control" placeholder="Search..." value="{{ app.request.query.get('q') }}">
@@ -17,20 +17,20 @@
     </form>
     <table class="table table-striped">
         <thead>
-            <tr>
-                <th scope="col">Article</th>
-                <th scope="col">Author</th>
-                <th scope="col">Content</th>
-                <th scope="col">Created</th>
-            </tr>
+        <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Author</th>
+            <th scope="col">Created</th>
+            <th scope="col">Published</th>
+        </tr>
         </thead>
         <tbody>
-        {% for comment in pagination %}
+        {% for article in pagination %}
             <tr>
-                <td><a href="{{ path('article_show', {slug: comment.article.slug}) }}">{{ comment.article.title }}</a></td>
-                <td>{{ comment.author }}</td>
-                <td>{{ comment.content|u.truncate(40, '...') }}</td>
-                <td>{{ comment.createdAt|date }}</td>
+                <td><a href="{{ path('article_show', {slug: article.slug}) }}">{{ article.title }}</a></td>
+                <td>{{ article.author }}</td>
+                <td>{{ article.createdAt|date }}</td>
+                <td><span class="fas fa-{{ article.isPublished ? 'check' : 'times' }}"></span></td>
             </tr>
         {% else %}
             <tr>
@@ -41,3 +41,5 @@
     </table>
     {{ knp_pagination_render(pagination) }}
 {% endblock %}
+
+

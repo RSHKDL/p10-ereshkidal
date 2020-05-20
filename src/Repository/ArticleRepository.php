@@ -59,6 +59,17 @@ class ArticleRepository extends ServiceEntityRepository
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
+    public function save(Article $article): void
+    {
+        $this->_em->persist($article);
+        $this->_em->flush();
+    }
+
+    /**
+     * @param Article $article
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
     public function update(Article $article): void
     {
         $this->_em->flush($article);

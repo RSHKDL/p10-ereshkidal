@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -29,12 +29,13 @@
             </div>
         </nav>
     </header>
+    {% include '_flash.html.twig' %}
     <div class="container-fluid">
         <div class="row">
             <aside class="col-2 bg-light text-dark vh-100">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('admin_comments') }}">
+                        <a class="nav-link" href="{{ path('admin_articles') }}">
                             <span class="far fa-newspaper" aria-hidden="true"></span> Manage articles
                         </a>
                     </li>

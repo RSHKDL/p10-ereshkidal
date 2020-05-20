@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -83,14 +85,31 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @todo actually save the article in the db
      * @Route("/articles/create", name="article_create")
+     * @param Request $request
+     * @return Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function create()
+    public function create(Request $request): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
-        $article = new Article();
-        $this->articleRepository->save($article);
+
+        $form = $this->createForm(ArticleType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $article = $form->getData();
+            $article->setAuthor($this->getUser());
+            $this->articleRepository->save($article);
+
+            $this->addFlash('success', 'Article created. A job well done.');
+
+            return $this->redirectToRoute('admin_articles');
+        }
+
+        return $this->render('article/new.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 
     /**
