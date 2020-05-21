@@ -36,6 +36,8 @@ class ArticleType extends AbstractType
             ])
             ->add('content')
             ->add('publishedAt', DateTimeType::class)
+            ->add('author', UserSelectTextType::class)
+            /*
             ->add('author', EntityType::class, [
                 'class' => User::class,
                 'choice_label' => static function(User $user) {
@@ -43,7 +45,7 @@ class ArticleType extends AbstractType
                 },
                 'placeholder' => 'Choose an author',
                 'choices' => $this->userRepository->findAllUsernameAlphabetical(),
-            ])
+            ])*/
         ;
     }
 

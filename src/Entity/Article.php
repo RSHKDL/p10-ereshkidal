@@ -72,6 +72,7 @@ class Article
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="articles")
+     * @Assert\NotNull(message="An author is mandatory")
      */
     private $author;
 
