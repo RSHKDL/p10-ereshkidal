@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
+use App\Form\UserRegistrationType;
 use App\Repository\UserRepository;
 use App\Security\LoginFormAuthenticator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -54,7 +54,6 @@ class SecurityController extends AbstractController
      * @return Response
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
-     * @todo use symfony form and validation
      */
     public function register(
         Request $request,
@@ -63,13 +62,13 @@ class SecurityController extends AbstractController
         GuardAuthenticatorHandler $guardAuthenticatorHandler,
         LoginFormAuthenticator $loginFormAuthenticator
     ): Response {
-        if ($request->isMethod('POST')) {
-            $user = new User();
-            $user->setEmail($request->request->get('email'));
-            $user->setUsername('fake_username');
+        $form = $this->createForm(UserRegistrationType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $form->getData();
             $user->setPassword($userPasswordEncoder->encodePassword(
                 $user,
-                $request->request->get('password')
+                $form['plainPassword']->getData()
             ));
 
             $userRepository->save($user);
@@ -82,6 +81,8 @@ class SecurityController extends AbstractController
             );
         }
 
-        return $this->render('security/register.html.twig');
+        return $this->render('security/register.html.twig', [
+            'registrationForm' => $form->createView()
+        ]);
     }
 }

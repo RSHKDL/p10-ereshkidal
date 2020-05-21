@@ -6,12 +6,18 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(name="app_users")
+ * @UniqueEntity(
+ *     fields={"email"},
+ *     message="This email is already used"
+ * )
  */
 class User implements UserInterface
 {
@@ -26,12 +32,15 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=140)
+     * @Assert\NotBlank(message="Please enter an username")
      * @Groups("main")
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank(message="Please enter an email")
+     * @Assert\Email()
      * @Groups("main")
      */
     private $email;
@@ -101,7 +110,7 @@ class User implements UserInterface
      */
     public function getUsername(): ?string
     {
-        return (string) $this->username;
+        return $this->username;
     }
 
     public function setUsername(string $username): self
