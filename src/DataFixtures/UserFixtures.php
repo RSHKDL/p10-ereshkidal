@@ -40,6 +40,7 @@ class UserFixtures extends BaseFixture
             $user->setEmail(sprintf('%s@example.com', strtolower(self::$authorNames[$i])));
             $user->setPassword($this->userPasswordEncoder->encodePassword($user, 'engage'));
             $user->setUsername(self::$authorNames[$i]);
+            $user->agreeTerms();
 
             $apiToken = new ApiToken($user);
             $manager->persist($apiToken);
@@ -53,6 +54,7 @@ class UserFixtures extends BaseFixture
             $user->setPassword($this->userPasswordEncoder->encodePassword($user, 'engage'));
             $user->setUsername('admin');
             $user->setRoles(['ROLE_ADMIN']);
+            $user->agreeTerms();
 
             return $user;
         });

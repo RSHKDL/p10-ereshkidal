@@ -75,6 +75,11 @@ class User implements UserInterface
      */
     private $articles;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $agreedTermsAt;
+
     public function __construct()
     {
         $this->apiTokens = new ArrayCollection();
@@ -280,6 +285,22 @@ class User implements UserInterface
                 $article->setAuthor(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAgreedTermsAt(): ?\DateTimeInterface
+    {
+        return $this->agreedTermsAt;
+    }
+
+    /**
+     * @return User
+     * @throws \Exception
+     */
+    public function agreeTerms(): self
+    {
+        $this->agreedTermsAt = new \DateTime();
 
         return $this;
     }
