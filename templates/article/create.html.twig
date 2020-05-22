@@ -2,6 +2,17 @@
 
 {% block title %}Add a new article{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/algolia-autocomplete.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script>
+    <script src="{{ asset('js/algolia-autocomplete.js') }}"></script>
+{% endblock %}
+
 {% block admin_body %}
     <h1>Add a new article</h1>
     {{ include('article/_form.html.twig', {
