@@ -31,6 +31,9 @@ class ArticleType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $article = $options['data'] ?? null;
+        $isEdit = $article && $article->getId();
+
         $builder
             ->add('title', TextType::class, [
                 'help' => 'Choose something catchy and unique!'
@@ -38,8 +41,13 @@ class ArticleType extends AbstractType
             ->add('content', TextareaType::class, [
                 'rows' => 10
             ])
-            ->add('publishedAt', DateTimeType::class)
-            ->add('author', UserSelectTextType::class)
+            ->add('author', UserSelectTextType::class, [
+                'disabled' => $isEdit
+            ]);
+
+            if ($isEdit) {
+                $builder->add('publishedAt', DateTimeType::class);
+            }
             /*
             ->add('author', EntityType::class, [
                 'class' => User::class,
@@ -49,7 +57,6 @@ class ArticleType extends AbstractType
                 'placeholder' => 'Choose an author',
                 'choices' => $this->userRepository->findAllUsernameAlphabetical(),
             ])*/
-        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
