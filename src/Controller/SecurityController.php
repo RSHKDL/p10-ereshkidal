@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\DTO\UserRegistrationDTO;
 use App\Form\UserRegistrationType;
 use App\Repository\UserRepository;
 use App\Security\LoginFormAuthenticator;
@@ -54,6 +55,7 @@ class SecurityController extends AbstractController
      * @return Response
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Exception
      */
     public function register(
         Request $request,
@@ -65,13 +67,8 @@ class SecurityController extends AbstractController
         $form = $this->createForm(UserRegistrationType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = $form->getData();
-            $user->agreeTerms();
-            $user->setPassword($userPasswordEncoder->encodePassword(
-                $user,
-                $form['plainPassword']->getData()
-            ));
-
+            $userDTO = $form->getData();
+            $user = UserRegistrationDTO::createNewlyRegisteredUser($userDTO, $userPasswordEncoder);
             $userRepository->save($user);
 
             return $guardAuthenticatorHandler->authenticateUserAndHandleSuccess(
