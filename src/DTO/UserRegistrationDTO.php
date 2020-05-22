@@ -3,6 +3,7 @@
 namespace App\DTO;
 
 use App\Entity\User;
+use App\Validator\UniqueUser;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -22,6 +23,7 @@ final class UserRegistrationDTO
      * @var string $email
      * @Assert\NotBlank(message="Please enter an email")
      * @Assert\Email()
+     * @UniqueUser()
      */
     public $email;
 
