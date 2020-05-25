@@ -97,4 +97,25 @@ class ReportController extends BaseController
             'reportForm' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("api/reports/specific-motive-select", methods={"GET"}, name="api_reports_specific_motive_select")
+     * @param Request $request
+     * @return Response
+     * @throws \Exception
+     */
+    public function getSpecificMotiveApi(Request $request): Response
+    {
+        $report = new ArticleReport();
+        $report->setMotive($request->query->get('motive'));
+        $form = $this->createForm(ReportType::class, $report);
+
+        if (!$form->has('specificMotive')) {
+            return new Response(null, 204);
+        }
+
+        return $this->render('report/_specific_motive.html.twig', [
+            'formPart' => $form->createView(),
+        ]);
+    }
 }

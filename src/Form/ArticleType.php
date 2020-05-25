@@ -57,29 +57,6 @@ class ArticleType extends AbstractType
                 'data' => $isEdit ? $article->getPublishedAt() : new \DateTime()
             ]);
 
-            /*$builder->addEventListener(
-                FormEvents::PRE_SET_DATA,
-                function (FormEvent $event) {
-                    /** @var Article|null $data
-                    $data = $event->getData();
-                    $this->setupPublishedAtField(
-                        $event->getForm(),
-                        $data ? $data->getStatus() : null
-                    );
-                }
-            );
-
-            $builder->get('publishOptions')->addEventListener(
-                FormEvents::POST_SUBMIT,
-                function (FormEvent $event) {
-                    $form = $event->getForm();
-                    $this->setupPublishedAtField(
-                        $form->getParent(),
-                        $form->getData()
-                    );
-                }
-            );*/
-
             /*
             ->add('author', EntityType::class, [
                 'class' => User::class,
@@ -97,13 +74,4 @@ class ArticleType extends AbstractType
             'data_class' => Article::class,
         ]);
     }
-
-    /*private function setupPublishedAtField(FormInterface $form, ?string $status): void
-    {
-        if ($status === Article::STATUS_DRAFT) {
-            $form->remove('publishedAt');
-
-            return;
-        }
-    }*/
 }

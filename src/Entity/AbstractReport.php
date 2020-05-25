@@ -74,7 +74,7 @@ Abstract class AbstractReport
         return $this->motive;
     }
 
-    public function setMotive(string $motive): self
+    public function setMotive(?string $motive): self
     {
         $this->motive = $motive;
 

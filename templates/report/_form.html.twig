@@ -1,6 +1,15 @@
 {{ form_start(reportForm, {attr: {novalidate: 'novalidate'}}) }}
-    {{ form_row(reportForm.motive) }}
-    {{ form_row(reportForm.specificMotive) }}
+    {{ form_row(reportForm.motive, {
+        attr: {
+            'data-specific-motive-url': path('api_reports_specific_motive_select'),
+            'class': 'js-report-form-motive'
+        }
+    }) }}
+    <div class="js-specific-motive-target">
+        {% if reportForm.specificMotive is defined %}
+            {{ form_row(reportForm.specificMotive) }}
+        {% endif %}
+    </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">
         {{ btn_text }}
     </button>
