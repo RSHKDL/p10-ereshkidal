@@ -1,9 +1,18 @@
 {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
     {{ form_row(form.title) }}
     {{ form_row(form.author) }}
-    {% if form.publishedAt is defined %}
-        {{ form_row(form.publishedAt) }}
+    {% set status = '' %}
+    {% set class = 'd-none' %}
+    {% if form.publishOptions is defined %}
+        {{ form_row(form.publishOptions) }}
+        {% set status = form.children.publishOptions.vars.value %}
     {% endif %}
+    {% if status == 'scheduled' %}
+        {% set class = '' %}
+    {% endif %}
+    <div class="js-publishedAt-field {{ class }}">
+        {{ form_row(form.publishedAt) }}
+    </div>
     {{ form_row(form.content) }}
     <button class="btn btn-lg btn-primary mt-3" type="submit">
         {{ btn_text }}

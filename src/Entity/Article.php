@@ -16,6 +16,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Article
 {
+    public const STATUS_PUBLISHED = 'published';
+    public const STATUS_SCHEDULED = 'scheduled';
+    public const STATUS_DRAFT = 'draft';
+
     use TimestampableEntity;
 
     /**
@@ -135,9 +139,31 @@ class Article
         return $this;
     }
 
+    /**
+     * @return bool
+     * @throws \Exception
+     */
     public function isPublished(): bool
     {
-        return $this->getPublishedAt() !== null;
+        return $this->getPublishedAt() !== null
+            && $this->getPublishedAt() <= new \DateTime();
+    }
+
+    /**
+     * @return string
+     * @throws \Exception
+     */
+    public function getStatus(): string
+    {
+        if ($this->isPublished()) {
+            return self::STATUS_PUBLISHED;
+        }
+
+        if (!$this->getPublishedAt()) {
+            return self::STATUS_DRAFT;
+        }
+
+        return self::STATUS_SCHEDULED;
     }
 
     public function incrementHeartCount(): self

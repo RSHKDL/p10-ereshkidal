@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Form\ArticleType;
+use App\Handler\ArticleHandler;
 use App\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -27,15 +28,25 @@ class ArticleController extends AbstractController
      */
     private $articleRepository;
 
+    /**
+     * @var ArticleHandler
+     */
+    private $handler;
+
     /***
      * ArticleController constructor.
      * @param bool $isDebug
      * @param ArticleRepository $articleRepository
+     * @param ArticleHandler $handler
      */
-    public function __construct(bool $isDebug, ArticleRepository $articleRepository)
-    {
+    public function __construct(
+        bool $isDebug,
+        ArticleRepository $articleRepository,
+        ArticleHandler $handler
+    ) {
         $this->isDebug = $isDebug;
         $this->articleRepository = $articleRepository;
+        $this->handler = $handler;
     }
 
     /**
@@ -98,9 +109,7 @@ class ArticleController extends AbstractController
         $form = $this->createForm(ArticleType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $article = $form->getData();
-            $this->articleRepository->save($article);
-            $this->addFlash('success', 'Article created! A job well done.');
+            $this->handler->create($form->getData(), $form->get('publishOptions')->getData());
 
             return $this->redirectToRoute('admin_articles');
         }
@@ -125,8 +134,7 @@ class ArticleController extends AbstractController
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->articleRepository->save($article);
-            $this->addFlash('success', 'Article updated! Good for you.');
+            $this->handler->update($form->getData(), $form->get('publishOptions')->getData());
 
             return $this->redirectToRoute('article_update', [
                 'id' => $article->getId()

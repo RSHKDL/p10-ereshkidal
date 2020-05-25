@@ -23,6 +23,7 @@ class ArticleRepository extends ServiceEntityRepository
 
     /**
      * @return Article[]
+     * @throws \Exception
      */
     public function findAllPublishedOrderedByNewest(): array
     {
@@ -48,10 +49,14 @@ class ArticleRepository extends ServiceEntityRepository
     /**
      * @param QueryBuilder|null $qb
      * @return QueryBuilder
+     * @throws \Exception
      */
     private function addIsPublishedQueryBuilder(QueryBuilder $qb = null): QueryBuilder
     {
-        return $this->getOrCreateQueryBuilder($qb)->andWhere('a.publishedAt IS NOT NULL');
+        return $this->getOrCreateQueryBuilder($qb)
+            ->andWhere('a.publishedAt IS NOT NULL')
+            ->andWhere('a.publishedAt <= :now')
+            ->setParameter('now', new \DateTime());
     }
 
     /**

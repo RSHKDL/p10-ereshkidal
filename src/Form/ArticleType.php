@@ -3,10 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Article;
-use App\Entity\User;
-use App\Repository\UserRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -20,19 +18,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ArticleType extends AbstractType
 {
     /**
-     * @var UserRepository
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     * @throws \Exception
      */
-    private $userRepository;
-
-    public function __construct(UserRepository $userRepository)
-    {
-        $this->userRepository = $userRepository;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        /** @var Article|null $article */
         $article = $options['data'] ?? null;
         $isEdit = $article && $article->getId();
+        $status = $article ? $article->getStatus() : null;
 
         $builder
             ->add('title', TextType::class, [
@@ -43,11 +38,48 @@ class ArticleType extends AbstractType
             ])
             ->add('author', UserSelectTextType::class, [
                 'disabled' => $isEdit
+            ])
+            ->add('publishOptions', ChoiceType::class, [
+                'label' => 'Choose when to publish the article',
+                'data' => $status ?? Article::STATUS_PUBLISHED,
+                'mapped' => false,
+                'required' => true,
+                'disabled' => $status === Article::STATUS_PUBLISHED,
+                'choices' => [
+                    'Publish now' => Article::STATUS_PUBLISHED,
+                    'Publish later' => Article::STATUS_SCHEDULED,
+                    'Save as a draft' => Article::STATUS_DRAFT
+                ]
+            ])
+            ->add('publishedAt', DateTimeType::class, [
+                'label' => 'Choose a publication date',
+                'required' => false,
+                'data' => $isEdit ? $article->getPublishedAt() : new \DateTime()
             ]);
 
-            if ($isEdit) {
-                $builder->add('publishedAt', DateTimeType::class);
-            }
+            /*$builder->addEventListener(
+                FormEvents::PRE_SET_DATA,
+                function (FormEvent $event) {
+                    /** @var Article|null $data
+                    $data = $event->getData();
+                    $this->setupPublishedAtField(
+                        $event->getForm(),
+                        $data ? $data->getStatus() : null
+                    );
+                }
+            );
+
+            $builder->get('publishOptions')->addEventListener(
+                FormEvents::POST_SUBMIT,
+                function (FormEvent $event) {
+                    $form = $event->getForm();
+                    $this->setupPublishedAtField(
+                        $form->getParent(),
+                        $form->getData()
+                    );
+                }
+            );*/
+
             /*
             ->add('author', EntityType::class, [
                 'class' => User::class,
@@ -65,4 +97,13 @@ class ArticleType extends AbstractType
             'data_class' => Article::class,
         ]);
     }
+
+    /*private function setupPublishedAtField(FormInterface $form, ?string $status): void
+    {
+        if ($status === Article::STATUS_DRAFT) {
+            $form->remove('publishedAt');
+
+            return;
+        }
+    }*/
 }
