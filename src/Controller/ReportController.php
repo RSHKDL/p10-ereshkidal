@@ -4,8 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\ArticleReport;
+use App\Form\ReportType;
 use App\Repository\AbstractReportRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -37,19 +40,61 @@ class ReportController extends BaseController
 
     /**
      * @Route("/reports/article/{id}/create", name="report_article_create")
+     * @param Request $request
      * @param Article $article
      * @return Response
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
-     * @throws \Exception
      */
-    public function reportArticle(Article $article): Response
+    public function reportArticle(Request $request, Article $article): Response
     {
-        $report = new ArticleReport();
-        $report->setArticle($article);
-        $report->setMotive('todo');
-        $this->reportRepository->save($report);
+        $form = $this->createForm(ReportType::class, null, [
+            'data_class' => ArticleReport::class
+        ]);
 
-        return $this->redirectToRoute('admin_reports');
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $report = $form->getData();
+            $report->setArticle($article);
+            $this->reportRepository->save($report);
+
+            return $this->redirectToRoute('app_homepage');
+        }
+
+        return $this->render('report/create.html.twig', [
+            'reportForm' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/reports/{id}/update", name="report_update")
+     * @param Request $request
+     * @param int $id
+     * @return Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function updateReport(Request $request, int $id): Response
+    {
+        $report = $this->reportRepository->find($id);
+
+        if (null === $report) {
+            throw new NotFoundHttpException();
+        }
+
+        $form = $this->createForm(ReportType::class, $report, [
+            'data_class' => get_class($report)
+        ]);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->reportRepository->save($form->getData());
+
+            return $this->redirectToRoute('app_homepage');
+        }
+
+        return $this->render('report/update.html.twig', [
+            'reportForm' => $form->createView()
+        ]);
     }
 }

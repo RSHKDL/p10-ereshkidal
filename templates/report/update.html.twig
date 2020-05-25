@@ -1,0 +1,10 @@
+{% extends 'container.html.twig' %}
+
+{% block title %}Update a report{% endblock %}
+
+{% block container %}
+    <h1 class="h3 font-weight-normal">Update report <b>#{{ reportForm.vars.value.name }}</b></h1>
+    {{ include('report/_form.html.twig', {
+        btn_text: 'Update report!'
+    }) }}
+{% endblock %}

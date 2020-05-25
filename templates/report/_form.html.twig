@@ -1,0 +1,7 @@
+{{ form_start(reportForm, {attr: {novalidate: 'novalidate'}}) }}
+    {{ form_row(reportForm.motive) }}
+    {{ form_row(reportForm.specificMotive) }}
+    <button class="btn btn-lg btn-primary btn-block" type="submit">
+        {{ btn_text }}
+    </button>
+{{ form_end(reportForm) }}
