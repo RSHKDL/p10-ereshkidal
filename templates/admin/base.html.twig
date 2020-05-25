@@ -23,7 +23,7 @@
                         <a class="nav-link" href="{{ path('app_homepage') }}">Return to site</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_homepage') }}">Logout</a>
+                        <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -35,18 +35,23 @@
             <aside class="col-2 bg-light text-dark vh-100">
                 <ul class="nav flex-column">
                     <li class="nav-item">
+                        <a class="nav-link" href="{{ path('article_create') }}">
+                            <span class="fas fa-edit" aria-hidden="true"></span> New article
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ path('admin_articles') }}">
-                            <span class="far fa-newspaper" aria-hidden="true"></span> Manage articles
+                            <span class="fas fa-archive" aria-hidden="true"></span> Manage articles
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('admin_comments') }}">
-                            <span class="far fa-comments" aria-hidden="true"></span> Manage comments
+                            <span class="fas fa-comments" aria-hidden="true"></span> Manage comments
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('admin_comments') }}">
-                            <span class="far fa-user" aria-hidden="true"></span> Manage users
+                            <span class="fas fa-user" aria-hidden="true"></span> Manage users
                         </a>
                     </li>
                 </ul>
