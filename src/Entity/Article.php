@@ -80,10 +80,16 @@ class Article
      */
     private $author;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ArticleReport::class, mappedBy="article")
+     */
+    private $reports;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->tags = new ArrayCollection();
+        $this->reports = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -277,6 +283,37 @@ class Article
     public function setAuthor(?User $author): self
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ArticleReport[]
+     */
+    public function getReports(): Collection
+    {
+        return $this->reports;
+    }
+
+    public function addReport(ArticleReport $report): self
+    {
+        if (!$this->reports->contains($report)) {
+            $this->reports[] = $report;
+            $report->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReport(ArticleReport $report): self
+    {
+        if ($this->reports->contains($report)) {
+            $this->reports->removeElement($report);
+            // set the owning side to null (unless already changed)
+            if ($report->getArticle() === $this) {
+                $report->setArticle(null);
+            }
+        }
 
         return $this;
     }

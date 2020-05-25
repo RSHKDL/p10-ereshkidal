@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\ArticleRepository;
 use App\Repository\CommentRepository;
+use App\Repository\AbstractReportRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -67,6 +68,25 @@ class AdminController extends AbstractController
         );
 
         return $this->render('admin/comments.html.twig', [
+            'pagination' => $pagination
+        ]);
+    }
+
+    /**
+     * @Route("/dashboard/reports", name="admin_reports")
+     * @param Request $request
+     * @param AbstractReportRepository $repository
+     * @return Response
+     */
+    public function manageReports(Request $request, AbstractReportRepository $repository): Response
+    {
+        $pagination = $this->paginator->paginate(
+            $repository->createQueryBuilder('r'),
+            $request->query->getInt('page', 1),
+            10
+        );
+
+        return $this->render('admin/reports.html.twig', [
             'pagination' => $pagination
         ]);
     }
