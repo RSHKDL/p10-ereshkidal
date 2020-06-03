@@ -5,8 +5,8 @@
  * (and its CSS file) in your base layout (base.html.twig).
  */
 
-// any CSS you import will output into a single css file (app.css in this case)
-import '../css/app.css';
+// any CSS you import will output into a single css file (app.scss in this case)
+import '../css/app.scss';
 import $ from 'jquery';
 import 'bootstrap'; // adds functions to jQuery
 // uncomment if you have legacy code that needs global variables
