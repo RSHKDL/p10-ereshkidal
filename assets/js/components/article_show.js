@@ -1,5 +1,6 @@
 import $ from 'jquery';
 $(document).ready(function() {
+    // Ajax call to add like
     $('.js-like-article').on('click', function(e) {
         e.preventDefault();
         let $link = $(e.currentTarget);
@@ -12,4 +13,6 @@ $(document).ready(function() {
             $('.js-like-article-count').html(data.hearts);
         });
     });
+    // Like tooltip
+    $('.js-like-article').tooltip();
 });
