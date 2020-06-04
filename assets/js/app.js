@@ -13,15 +13,10 @@ import 'bootstrap'; // adds functions to jQuery
 // global.$ = $;
 
 import './components/article_show';
-import './components/article_form';
 import './components/report_form';
-import autocomplete from './components/algolia-autocomplete';
 
 $('.dropdown-toggle').dropdown();
 
 $(document).ready(function() {
-    const $autocomplete = $('.js-user-autocomplete');
-    if (!$autocomplete.is(':disabled')) {
-        autocomplete($autocomplete, 'users', 'email')
-    }
+
 });

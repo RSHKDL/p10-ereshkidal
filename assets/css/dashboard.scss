@@ -1,0 +1,21 @@
+@import "helper/variables";
+@import '~bootstrap';
+@import '~@fortawesome/fontawesome-free/css/all.min.css';
+
+body {
+    background: $neutralContrasted;
+}
+
+html {
+    height:100%;
+    background: $neutral;
+}
+
+/* NAVIGATION */
+
+.admin aside {
+    background: $neutral;
+    font-size: small;
+    padding-top: 3em;
+}
+
