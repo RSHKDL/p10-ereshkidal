@@ -14,3 +14,8 @@
 ###> symfony/web-server-bundle ###
 /.web-server-pid
 ###< symfony/web-server-bundle ###
+
+### to be modified
+/.yarn/
+/public/build/
+/node_modules/
