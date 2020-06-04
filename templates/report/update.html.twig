@@ -2,11 +2,6 @@
 
 {% block title %}Update a report{% endblock %}
 
-{% block javascripts %}
-    {{ parent() }}
-    <script src="{{ asset('js/report_form.js') }}"></script>
-{% endblock %}
-
 {% block container %}
     <h1 class="h3 font-weight-normal">Update report <b>#{{ reportForm.vars.value.name }}</b></h1>
     {{ include('report/_form.html.twig', {

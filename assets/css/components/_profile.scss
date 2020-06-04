@@ -2,13 +2,9 @@
     border-radius: 0px!important;
 }
 
-/* -- color classes -- */
-.spacepurplebg {
-    background-color: #5b4f69;
-}
-
-.white {
-    color: #fff!important;
+.user-details main {
+    background-color: $charcoal;
+    color: white;
 }
 
 div.user-menu-container {
@@ -34,10 +30,9 @@ div.user-menu-container a, div.user-menu-container .btn  {
 div.user-menu-container .thumbnail {
     width:100%;
     min-height:200px;
-    border: 0px!important;
-    padding: 0px;
+    border: 0!important;
+    padding: 0;
     border-radius: 0;
-    border: 0px!important;
 }
 
 /* -- Custom classes for the snippet, won't effect any existing bootstrap classes of your site, but can be reused. -- */
@@ -64,7 +59,6 @@ div.user-menu-container .thumbnail {
 
 .overview h3 {
     font-weight: 300;
-    margin-top: 15px;
     margin: 10px 0 0 0;
 }
 
@@ -75,7 +69,7 @@ div.user-menu-container .thumbnail {
 }
 
 .square {
-    border-radius: 0px!important;
+    border-radius: 0!important;
 }
 
 /* -- media query for user profile image -- */

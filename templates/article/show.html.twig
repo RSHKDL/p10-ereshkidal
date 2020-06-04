@@ -13,7 +13,7 @@
         {% endfor %}
         <span class="pl-2">
             <span class="js-like-article-count">{{ article.heartCount }}</span>
-            <a href="{{ path('article_toggle_heart', {slug: article.slug}) }}" class="fa fa-heart-o js-like-article"></a>
+            <a href="{{ path('article_toggle_heart', {slug: article.slug}) }}" class="far fa-heart js-like-article" title="Click to like!"></a>
         </span>
     </header>
     <section class="row">
@@ -51,9 +51,4 @@
         {% endfor %}
     </section>
 </div>
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    <script src="{{ asset('js/article_show.js') }}"></script>
 {% endblock %}
