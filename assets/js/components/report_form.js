@@ -1,3 +1,4 @@
+import $ from 'jquery';
 $(document).ready(function() {
     let $motiveSelect = $('.js-report-form-motive');
     let $specificMotiveTarget = $('.js-specific-motive-target');

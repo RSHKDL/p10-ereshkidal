@@ -1,3 +1,4 @@
+import $ from 'jquery';
 $(document).ready(function () {
     let dropdown = $('#article_publishOptions');
     let target = $('.js-publishedAt-field');
