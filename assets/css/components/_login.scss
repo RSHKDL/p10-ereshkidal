@@ -1,5 +1,7 @@
+@import "../helper/variables";
+
 .form-login {
-    background-color: white;
+    background-color: $neutral;
     border-radius: 10px;
     width: 100%;
     max-width: 330px;
