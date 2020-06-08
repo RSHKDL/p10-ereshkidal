@@ -31,7 +31,21 @@
                 <li>Nothing to share yet</li>
                 <li>Yup, sorry</li>
             </ul>
-            <a href="{{ path('report_article_create', {id: article.id}) }}">Report this article</a>
+            <strong>Actions</strong>
+            <div class="list-group">
+                {% if is_granted('MANAGE', article) %}
+                    {{ include('admin/_article_delete_modal.html.twig', {article: article}) }}
+                    <a href="{{ path('article_update', {id: article.id}) }}" class="list-group-item list-group-item-action" title="Update article">
+                        <span class="fas fa-edit" aria-hidden="true"></span> Edit
+                    </a>
+                    <button type="button" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#deleteArticle-{{ article.id }}" title="Delete article">
+                        <span class="fas fa-trash" aria-hidden="true"></span> Delete
+                    </button>
+                {% endif %}
+                <a href="{{ path('report_article_create', {id: article.id}) }}" class="list-group-item list-group-item-action">
+                    <span class="fas fa-exclamation-triangle" aria-hidden="true"></span> Report this article
+                </a>
+            </div>
         </aside>
     </section>
     <section>
