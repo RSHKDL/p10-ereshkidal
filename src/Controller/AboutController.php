@@ -17,7 +17,7 @@ class AboutController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('about/login.html.twig');
+        return $this->render('about/index.html.twig');
     }
 
     /**
@@ -26,5 +26,13 @@ class AboutController extends AbstractController
     public function showResume(): Response
     {
         return $this->render('about/resume.html.twig');
+    }
+
+    /**
+     * @Route("/about/portfolio", name="app_portfolio")
+     */
+    public function showPortfolio(): Response
+    {
+        return $this->render('about/portfolio.html.twig');
     }
 }

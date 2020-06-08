@@ -1,0 +1,87 @@
+{% extends 'container.html.twig' %}
+
+{% block title %}Portfolio{% endblock %}
+
+{% block container %}
+    <h1>My Portfolio</h1>
+    <div class="card-deck mb-3">
+        <div class="card">
+            <img src="{{ asset('uploads/default/default_image.jpg') }}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Decisive Cougar</h5>
+                <p class="card-text">An app for managing board games tournaments. Currently under development!</p>
+                <a href="#" class="btn btn-primary disabled">
+                    <span class="fas fa-external-link-square-alt" aria-hidden="true"></span> Website
+                </a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="{{ asset('uploads/default/default_image.jpg') }}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">SnowTricks</h5>
+                <p class="card-text">A community website built with Symfony.</p>
+                <a href="https://github.com/RSHKDL/p6-symfony-4-1" class="btn btn-primary">
+                    <span class="fab fa-github" aria-hidden="true"></span> Github repository
+                </a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="{{ asset('uploads/default/default_image.jpg') }}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">BileMo</h5>
+                <p class="card-text">Bilemo is a REST API which provides a catalog of Phones and Tablets accessible by the Retailers and their Clients.</p>
+                <a href="https://github.com/RSHKDL/p7-rest-api" class="btn btn-primary mb-1">
+                    <span class="fab fa-github" aria-hidden="true"></span> Github repository
+                </a>
+                <a href="#" class="btn btn-primary">
+                    <span class="fas fa-file" aria-hidden="true"></span> Api documentation
+                </a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="{{ asset('uploads/default/default_image.jpg') }}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">ToDo & Co</h5>
+                <p class="card-text">A Symfony 3.4 project featuring a very basic To do list. The goal was to improve upon an existing project.
+                </p>
+                <a href="https://github.com/RSHKDL/p8-improve-an-app" class="btn btn-primary">
+                    <span class="fab fa-github" aria-hidden="true"></span> Github repository
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="card-deck mb-3">
+        <div class="card">
+            <img src="{{ asset('uploads/default/default_image.jpg') }}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">PHPOO</h5>
+                <p class="card-text">A simple blog system written in PHP as a school project.</p>
+                <a href="https://github.com/RSHKDL/p5-blog-php" class="btn btn-primary">
+                    <span class="fab fa-github" aria-hidden="true"></span> Github repository
+                </a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="{{ asset('uploads/default/default_image.jpg') }}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Chalet & Caviar</h5>
+                <p class="card-text">A clean website built with Wordpress.</p>
+                <a href="http://www.chalets-et-caviar.ereshkidal.com/" class="btn btn-primary">
+                    <span class="fab fa-wordpress" aria-hidden="true"></span> Website
+                </a>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">My next project...</h5>
+                <p class="card-text">...is not ready yet</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">My next project...</h5>
+                <p class="card-text">...is not ready yet</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

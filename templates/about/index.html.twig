@@ -1,0 +1,11 @@
+{% extends 'container.html.twig' %}
+
+{% block title %}About{% endblock %}
+
+{% block container %}
+    <ul>
+        <li><a href="{{ path('app_portfolio') }}">My portfolio</a></li>
+        <li><a href="{{ path('app_resume') }}">My resume</a></li>
+        <li>Download my resume in pdf</li>
+    </ul>
+{% endblock %}

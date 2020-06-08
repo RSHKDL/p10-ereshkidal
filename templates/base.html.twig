@@ -23,11 +23,14 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{ path('app_homepage') }}">Talk <span class="sr-only">(current)</span></a>
+                <li class="nav-item {% if app.request.attributes.get('_route') is same as("app_homepage")  %}active{% endif %}">
+                    <a class="nav-link" href="{{ path('app_homepage') }}">Thoughts</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_resume') }}">About</a>
+                    <a class="nav-link" href="#">Playground</a>
+                </li>
+                <li class="nav-item {% if app.request.attributes.get('_route') is same as("app_about") %}active{% endif %}">
+                    <a class="nav-link" href="{{ path('app_about') }}">About</a>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
