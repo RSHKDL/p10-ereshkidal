@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Article;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -35,6 +36,13 @@ class ArticleRepository extends ServiceEntityRepository
             ->orderBy('a.publishedAt', 'DESC')
             ->getQuery()
             ->getResult();
+    }
+
+    public function getArticlesByAuthorQueryBuilder(User $user, QueryBuilder $qb = null): QueryBuilder
+    {
+        return $this->getOrCreateQueryBuilder($qb)
+            ->andWhere('a.author = :user')
+            ->setParameter('user', $user);
     }
 
     /**

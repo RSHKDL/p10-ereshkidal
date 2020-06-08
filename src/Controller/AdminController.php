@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Repository\ArticleRepository;
 use App\Repository\CommentRepository;
 use App\Repository\AbstractReportRepository;
@@ -40,19 +41,42 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/dashboard/articles", name="admin_articles")
+     * @Route("/dashboard/articles/all", name="admin_articles_all")
      * @param Request $request
      * @param ArticleRepository $repository
      * @return Response
      */
-    public function manageArticles(Request $request, ArticleRepository $repository): Response
+    public function manageAllArticles(Request $request, ArticleRepository $repository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $pagination = $this->paginator->paginate(
             $repository->createQueryBuilder('a'),
             $request->query->getInt('page', 1),
             10
         );
 
+        return $this->render('admin/articles.html.twig', [
+            'pagination' => $pagination
+        ]);
+    }
+
+    /**
+     * @Route("/dashboard/articles/self", name="admin_articles_self")
+     * @param Request $request
+     * @param ArticleRepository $repository
+     * @return Response
+     */
+    public function manageMyArticles(Request $request, ArticleRepository $repository): Response
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        $pagination = $this->paginator->paginate(
+            $repository->getArticlesByAuthorQueryBuilder($user),
+            $request->query->getInt('page', 1),
+            10
+        );
         return $this->render('admin/articles.html.twig', [
             'pagination' => $pagination
         ]);
