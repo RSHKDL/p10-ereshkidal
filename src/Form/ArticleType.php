@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * Class ArticleType
@@ -17,6 +18,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class ArticleType extends AbstractType
 {
+    /**
+     * @var Security
+     */
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -36,9 +47,6 @@ class ArticleType extends AbstractType
             ->add('content', TextareaType::class, [
                 'rows' => 10
             ])
-            ->add('author', UserSelectTextType::class, [
-                'disabled' => $isEdit
-            ])
             ->add('publishOptions', ChoiceType::class, [
                 'label' => 'Choose when to publish the article',
                 'data' => $status ?? Article::STATUS_PUBLISHED,
@@ -56,6 +64,12 @@ class ArticleType extends AbstractType
                 'required' => false,
                 'data' => $isEdit ? $article->getPublishedAt() : new \DateTime()
             ]);
+
+            if ($this->security->isGranted('ROLE_ADMIN')) {
+                $builder->add('author', UserSelectTextType::class, [
+                    'disabled' => $isEdit
+                ]);
+            }
 
             /*
             ->add('author', EntityType::class, [

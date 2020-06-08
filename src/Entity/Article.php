@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -76,7 +77,7 @@ class Article
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="articles")
-     * @Assert\NotNull(message="An author is mandatory")
+     * @Assert\NotNull(message="An author is mandatory", groups={"admin"})
      */
     private $author;
 
@@ -280,6 +281,10 @@ class Article
         return $this->author;
     }
 
+    /**
+     * @param User|UserInterface|null $author
+     * @return Article
+     */
     public function setAuthor(?User $author): self
     {
         $this->author = $author;

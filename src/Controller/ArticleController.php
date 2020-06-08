@@ -107,13 +107,21 @@ class ArticleController extends AbstractController
     public function create(Request $request): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
+        $isAdmin = $this->isGranted('ROLE_ADMIN');
 
-        $form = $this->createForm(ArticleType::class);
+        $form = $this->createForm(ArticleType::class, null, [
+            'validation_groups' => ['default', $isAdmin ? 'admin' : '']
+        ]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->handler->create($form->getData(), $form->get('publishOptions')->getData());
+            /** @var Article $article */
+            $article = $form->getData();
+            if (!$isAdmin) {
+                $article->setAuthor($this->getUser());
+            }
+            $this->handler->create($article, $form->get('publishOptions')->getData());
 
-            return $this->redirectToRoute('admin_articles');
+            return $this->redirectToRoute('admin_articles_self');
         }
 
         return $this->render('article/create.html.twig', [

@@ -1,6 +1,8 @@
 {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
     {{ form_row(form.title) }}
-    {{ form_row(form.author) }}
+    {% if is_granted('ROLE_ADMIN') %}
+        {{ form_row(form.author) }}
+    {% endif %}
     {% set status = '' %}
     {% set class = 'd-none' %}
     {% if form.publishOptions is defined %}
