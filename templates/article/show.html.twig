@@ -7,7 +7,7 @@
     <header class="mb-3">
         <small>{{ article.publishedAt|date('F jS, Y') }}</small>
         <h1>{{ article.title }}</h1>
-        <span>By {{ article.author }}</span>
+        <span>By <a href="{{ path('app_profile', { id: article.author.id}) }}">{{ article.author }}</a></span>
         {% for tag in article.tags %}
             <span class="badge badge-secondary">{{ tag.name }}</span>
         {% endfor %}

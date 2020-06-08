@@ -6,11 +6,18 @@ use App\Repository\ArticleRepository;
 use App\Repository\CommentRepository;
 use App\Repository\AbstractReportRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class AdminController
+ * @author ereshkidal
+ *
+ * @IsGranted("ROLE_USER")
+ */
 class AdminController extends AbstractController
 {
     /**
@@ -24,16 +31,15 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin", name="admin_index")
+     * @Route("/dashboard", name="admin_dashboard")
      */
-    public function index(): Response
+    public function dashboard(): Response
     {
-        return $this->render('admin/index.html.twig', [
-        ]);
+        return $this->render('admin/index.html.twig');
     }
 
     /**
-     * @Route("/admin/articles", name="admin_articles")
+     * @Route("/dashboard/articles", name="admin_articles")
      * @param Request $request
      * @param ArticleRepository $repository
      * @return Response
@@ -52,7 +58,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/comments", name="admin_comments")
+     * @Route("/dashboard/comments", name="admin_comments")
      * @param Request $request
      * @param CommentRepository $repository
      * @return Response
@@ -88,6 +94,18 @@ class AdminController extends AbstractController
 
         return $this->render('admin/reports.html.twig', [
             'pagination' => $pagination
+        ]);
+    }
+
+    /**
+     * @Route("/dashboard/account", name="admin_account")
+     */
+    public function manageAccount(): Response
+    {
+        $user = $this->getUser();
+
+        return $this->render('admin/account.html.twig', [
+            'user' => $user
         ]);
     }
 }

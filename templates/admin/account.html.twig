@@ -1,0 +1,11 @@
+{% extends 'admin/index.html.twig' %}
+
+{% block title %}Dashboard - Manage your account{% endblock %}
+
+{% block admin_body %}
+    <h2>Manage your account</h2>
+    <ul>
+        <li>username: {{ user.username }}</li>
+        <li>email: {{ user.email }}</li>
+    </ul>
+{% endblock %}

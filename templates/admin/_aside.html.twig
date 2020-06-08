@@ -5,23 +5,38 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="{{ path('admin_articles') }}">
-            <span class="fas fa-archive" aria-hidden="true"></span> Manage articles
+        <a class="nav-link" href="#">
+            <span class="fas fa-folder" aria-hidden="true"></span> My articles
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="{{ path('admin_comments') }}">
-            <span class="fas fa-comments" aria-hidden="true"></span> Manage comments
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{ path('admin_comments') }}">
-            <span class="fas fa-user" aria-hidden="true"></span> Manage users
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{ path('admin_reports') }}">
-            <span class="fas fa-exclamation-triangle" aria-hidden="true"></span> Manage reports
+        <a class="nav-link" href="{{ path('admin_account') }}">
+            <span class="fas fa-id-card" aria-hidden="true"></span> My account
         </a>
     </li>
 </ul>
+{% if is_granted('ROLE_ADMIN') %}
+    <hr>
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('admin_articles') }}">
+                <span class="fas fa-archive" aria-hidden="true"></span> Manage articles
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('admin_comments') }}">
+                <span class="fas fa-comments" aria-hidden="true"></span> Manage comments
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('admin_comments') }}">
+                <span class="fas fa-user" aria-hidden="true"></span> Manage users
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('admin_reports') }}">
+                <span class="fas fa-exclamation-triangle" aria-hidden="true"></span> Manage reports
+            </a>
+        </li>
+    </ul>
+{% endif %}

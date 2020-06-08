@@ -2,31 +2,32 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class AccountController
+ * Class ProfileController
  * @author ereshkidal
  */
-class AccountController extends BaseController
+class ProfileController extends BaseController
 {
     /**
-     * @Route("/account", name="app_account")
+     * @Route("/profile/{id}", name="app_profile")
+     * @param User $user
+     * @return Response
      */
-    public function index(): Response
+    public function show(User $user): Response
     {
-        $user = $this->getUser();
-
-        return $this->render('account/index.html.twig', [
+        return $this->render('profile/show.html.twig', [
             'user' => $user,
         ]);
     }
 
     /**
-     * @Route("/api/account", name="api_account")
+     * @Route("/api/profile", name="api_profile")
      */
     public function accountApi(): JsonResponse
     {

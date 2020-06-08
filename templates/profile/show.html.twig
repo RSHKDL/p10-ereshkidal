@@ -9,15 +9,21 @@
                 <main class="row">
                     <div class="col-md-2 no-pad">
                         <div class="user-image">
-                            <img src="{{ app.user.getAvatarUrl() }}" class="img-responsive thumbnail" alt="user avatar">
+                            <img src="{{ user.getAvatarUrl() }}" class="img-responsive thumbnail" alt="user avatar">
                         </div>
                     </div>
                     <div class="col-md-10 no-pad">
                         <div class="user-pad">
-                            <h3>Welcome back, {{ app.user.username }}</h3>
-                            <h4 class="white"><span class="fab fa-twitter" aria-hidden="true"></span> {{ app.user.getTwitterUsername }}</h4>
+                            <h3>{{ user.username }}</h3>
+                            <h4 class="white"><span class="fab fa-twitter" aria-hidden="true"></span> {{ user.getTwitterUsername }}</h4>
                             <a class="btn btn-primary" href="#">
-                                <span class="fas fa-edit" aria-hidden="true"></span> Update
+                                <span class="fas fa-paper-plane" aria-hidden="true"></span> Send message
+                            </a>
+                            <a class="btn btn-success" href="#">
+                                <span class="fas fa-handshake" aria-hidden="true"></span> Cheer
+                            </a>
+                            <a class="btn btn-danger" href="#">
+                                <span class="fas fa-exclamation-triangle" aria-hidden="true"></span> Report
                             </a>
                         </div>
                     </div>
