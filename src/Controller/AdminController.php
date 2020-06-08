@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Repository\ArticleRepository;
 use App\Repository\CommentRepository;
 use App\Repository\AbstractReportRepository;
+use App\Repository\UserRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -74,6 +75,27 @@ class AdminController extends AbstractController
         );
 
         return $this->render('admin/comments.html.twig', [
+            'pagination' => $pagination
+        ]);
+    }
+
+    /**
+     * @Route("/dashboard/users", name="admin_users")
+     * @param Request $request
+     * @param UserRepository $repository
+     * @return Response
+     */
+    public function manageUsers(Request $request, UserRepository $repository): Response
+    {
+        $term = $request->query->get('q');
+        $queryBuilder = $repository->getQueryBuilderWithFilter($term);
+        $pagination = $this->paginator->paginate(
+            $queryBuilder,
+            $request->query->getInt('page', 1),
+            10
+        );
+
+        return $this->render('admin/users.html.twig', [
             'pagination' => $pagination
         ]);
     }

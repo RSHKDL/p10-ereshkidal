@@ -1,0 +1,43 @@
+{% extends 'admin/index.html.twig' %}
+
+{% block title %}Dashboard - Manage Users{% endblock %}
+
+{% block admin_body %}
+    <h2>Manage Users ({{ pagination.totalItemCount }})</h2>
+    <form>
+        <div class="input-group mb-3">
+            <input type="text" name="q" class="form-control" placeholder="Search..." value="{{ app.request.query.get('q') }}">
+            <div class="input-group-append">
+                <button type="submit"
+                        class="btn btn-dark">
+                    <span class="fa fa-search"></span>
+                </button>
+            </div>
+        </div>
+    </form>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Username</th>
+            <th scope="col">Email</th>
+            <th scope="col">Role</th>
+            <th scope="col">Created</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in pagination %}
+            <tr>
+                <td><a href="{{ path('app_profile', {id: user.id}) }}">{{ user.username }}</a></td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.printRoles }}</td>
+                <td>{{ user.createdAt|date }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4" class="text-center">No result found.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {{ knp_pagination_render(pagination) }}
+{% endblock %}

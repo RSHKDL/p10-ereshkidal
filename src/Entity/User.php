@@ -144,6 +144,11 @@ class User implements UserInterface
         return $this;
     }
 
+    public function printRoles(): string
+    {
+        return implode(', ', $this->getRoles());
+    }
+
     /**
      * @see UserInterface
      */

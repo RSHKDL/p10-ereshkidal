@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -54,5 +55,21 @@ class UserRepository extends ServiceEntityRepository
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult();
+    }
+
+    /**
+     * @param string|null $term
+     * @return QueryBuilder
+     */
+    public function getQueryBuilderWithFilter(?string $term): QueryBuilder
+    {
+        $qb = $this->createQueryBuilder('u');
+
+        if ($term) {
+            $qb->andWhere('u.username LIKE :term OR u.email LIKE :term');
+            $qb->setParameter('term', '%' . $term . '%');
+        }
+
+        return $qb->orderBy('u.username', 'ASC');
     }
 }
