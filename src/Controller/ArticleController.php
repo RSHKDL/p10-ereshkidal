@@ -8,6 +8,7 @@ use App\Handler\ArticleHandler;
 use App\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -51,6 +52,7 @@ class ArticleController extends AbstractController
 
     /**
      * @Route("/", name="app_homepage")
+     * @throws \Exception
      */
     public function homepage(): Response
     {
@@ -149,10 +151,16 @@ class ArticleController extends AbstractController
     /**
      * @Route("/articles/{id}/delete", name="article_delete")
      * @param Article $article
+     * @return RedirectResponse
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function delete(Article $article)
+    public function delete(Article $article): RedirectResponse
     {
         $this->denyAccessUnlessGranted('MANAGE', $article);
-        dd($article);
+        $this->articleRepository->remove($article);
+        $this->addFlash('success', 'Article successfully deleted');
+
+        return $this->redirectToRoute('admin_dashboard');
     }
 }

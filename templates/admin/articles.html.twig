@@ -35,9 +35,11 @@
                     <span class="fas fa-{{ article.isPublished ? 'check' : 'times' }}"></span>
                 </td>
                 <td>
-                    <span class="fas fa-calendar-check text-success" aria-hidden="true"></span>
-                    <a href="{{ path('article_update', {id: article.id}) }}" class="text-warning"><span class="fas fa-edit" aria-hidden="true"></span></a>
-                    <a href="{{ path('article_delete', {id: article.id}) }}" class="text-danger"><span class="fas fa-trash" aria-hidden="true"></span></a>
+                    <a href="{{ path('article_update', {id: article.id}) }}" class="btn btn-primary btn-sm" title="Update article"><span class="fas fa-edit" aria-hidden="true"></span></a>
+                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteArticle-{{ article.id }}" title="Delete article">
+                        <span class="fas fa-trash" aria-hidden="true"></span>
+                    </button>
+                    {{ include('admin/_article_delete_modal.html.twig', {article: article}) }}
                 </td>
             </tr>
         {% else %}

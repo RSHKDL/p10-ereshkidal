@@ -71,13 +71,28 @@ class ArticleRepository extends ServiceEntityRepository
     }
 
     /**
+     * Persist isn't necessary:
+     * Doctrine is already "watching" your object for changes.
+     *
      * @param Article $article
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function update(Article $article): void
     {
-        $this->_em->flush($article);
+        $this->_em->persist($article);
+        $this->_em->flush();
+    }
+
+    /**
+     * @param Article $article
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function remove(Article $article): void
+    {
+        $this->_em->remove($article);
+        $this->_em->flush();
     }
 
     /**

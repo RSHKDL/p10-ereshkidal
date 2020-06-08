@@ -63,7 +63,7 @@ class Article
     private $imageFilename;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="article", fetch="EXTRA_LAZY")
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="article", fetch="EXTRA_LAZY", orphanRemoval=true)
      * @ORM\OrderBy({"createdAt" = "DESC"})
      */
     private $comments;
@@ -81,7 +81,7 @@ class Article
     private $author;
 
     /**
-     * @ORM\OneToMany(targetEntity=ArticleReport::class, mappedBy="article")
+     * @ORM\OneToMany(targetEntity=ArticleReport::class, mappedBy="article", orphanRemoval=true)
      */
     private $reports;
 
