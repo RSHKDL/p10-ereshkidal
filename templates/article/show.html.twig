@@ -17,7 +17,7 @@
         </span>
     </header>
     <section class="row">
-        <main class="col-8 article-text ">
+        <main class="col-9 article-text ">
             {% if article.imageFilename %}
                 <img src="{{ asset(article.imagePath) }}" alt="{{ article.title }}">
             {% else %}
@@ -25,11 +25,11 @@
             {% endif %}
             {{ article.content }}
         </main>
-        <aside class="col-4">
+        <aside class="col-3">
             <strong>Share</strong>
-            <ul>
-                <li>Nothing to share yet</li>
-                <li>Yup, sorry</li>
+            <ul class="list-group">
+                <li class="list-group-item">Nothing to share yet</li>
+                <li class="list-group-item">Yup, sorry</li>
             </ul>
             <strong>Actions</strong>
             <div class="list-group">
