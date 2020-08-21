@@ -1,0 +1,26 @@
+{% extends 'admin/index.html.twig' %}
+
+{% block title %}Dashboard - Manage Tag {{ tag.name }}{% endblock %}
+
+{% block admin_body %}
+    <h2>Tag: {{ tag.name }}</h2>
+    <form>
+        <p>form to change tag name</p>
+    </form>
+    <ul class="list-group">
+    {% for article in tag.articles %}
+        <li class="list-group-item d-flex justify-content-between align-items-center js-article-item">
+            <a href="{{ path('article_show', {slug: article.slug}) }}">{{ article.title }}</a>
+            <button
+                    type="button"
+                    class="btn btn-sm btn-danger js-remove-article"
+                    data-url="{{ path('remove_article_from_tag', {tagId: tag.id, articleId: article.id}) }}"
+            >
+                <span class="fas fa-times" aria-hidden="true"></span>
+            </button>
+        </li>
+    {% else %}
+        <li class="list-group-item">No result found.</li>
+    {% endfor %}
+    </ul>
+{% endblock %}

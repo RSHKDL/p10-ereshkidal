@@ -10,4 +10,23 @@ $(document).ready(function() {
     if (!$autocomplete.is(':disabled')) {
         autocomplete($autocomplete, 'users', 'email')
     }
+
+    // remove article from tag
+    $('.js-remove-article').on('click', function (e) {
+        let $element = $(this).closest('.js-article-item');
+        $(this)
+            .find("span")
+            .removeClass('fa-times')
+            .addClass('fa-circle-notch')
+            .addClass('fa-spin');
+
+        $.ajax(
+            $(this).data('url'),
+            {
+                method: 'DELETE'
+            }
+        ).done(function () {
+            $element.fadeTo(600, 0);
+        });
+    })
 });

@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Repository\ArticleRepository;
 use App\Repository\CommentRepository;
 use App\Repository\AbstractReportRepository;
+use App\Repository\TagRepository;
 use App\Repository\UserRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -78,6 +79,25 @@ class AdminController extends AbstractController
             10
         );
         return $this->render('admin/articles.html.twig', [
+            'pagination' => $pagination
+        ]);
+    }
+
+    /**
+     * @Route("/dashboard/tags", name="admin_tags")
+     * @param Request $request
+     * @param TagRepository $repository
+     * @return Response
+     */
+    public function manageTags(Request $request, TagRepository $repository): Response
+    {
+        $pagination = $this->paginator->paginate(
+            $repository->findAllQueryBuilder(),
+            $request->query->getInt('page', 1),
+            10
+        );
+
+        return $this->render('admin/tags_list.html.twig', [
             'pagination' => $pagination
         ]);
     }
